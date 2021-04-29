@@ -3,5 +3,5 @@ from .views import WebhookListener
 
 
 urlpatterns = [
-    path("<str:token>/", WebhookListener.as_view())
+    path("webhook/<str:token>/", WebhookListener.as_view())
 ]
