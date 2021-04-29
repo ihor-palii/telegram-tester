@@ -1,12 +1,11 @@
-from django.http import JsonResponse, HttpRequest
-from django.views import View
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from .models import MessageUpdate
 
 
-class WebhookListener(View):
+class WebhookListener(APIView):
     def post(self, *args, **kwargs):
-        body_data = self.request.POST.dict()
-        print(self.request.headers, self.request.body)
+        body_data = self.request.data
         update = MessageUpdate.objects.create(token=kwargs.get("token", ""), data=body_data)
-        return JsonResponse({"update_id": update.id})
+        return Response({"update_id": update.id})
